@@ -3,7 +3,7 @@ BSX Exchange Python SDK
 
 This is the Python SDK for the `BSX Exchange API <https://api-docs.bsx.exchange/reference/general-information>`_.
 
-The latest version of the SDK can be found on `PyPI <https://api-docs.bsx.exchange/reference/general-information>`_, and the source code is on `GitHub <https://api-docs.bsx.exchange/reference/general-information>`_.
+The latest version of the SDK can be found on `PyPI <https://pypi.org/project/bsx-sdk-py>`_, and the source code is on `GitHub <https://github.com/bsx-engineering/bsx-python-sdk>`_.
 
 .. NOTE::
 
@@ -26,7 +26,7 @@ Via pip:
 
 .. code-block:: bash
 
-    pip install bsx-exchange-sdk
+    pip install bsx-sdk-py
 
 You might want to use a virtual environment to isolate your packages.
 

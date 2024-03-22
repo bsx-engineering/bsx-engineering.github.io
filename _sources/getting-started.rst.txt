@@ -19,15 +19,13 @@ Create the BSXInstance providing BSX Exchange domain, account and signer:
 .. code-block:: python
 
     >>> from eth_account import Account
-    >>> from bsx_python_sdk import BSXInstance
+    >>> from bsx_py import BSXInstance, Environment
 
     >>> wallet_private_key = "xxx"
     >>> signer_private_key = "yyy"
     >>> wallet = Account.from_key(wallet_private_key)
     >>> signer = Account.from_key(signer_private_key)
-    >>> bsx_instance = BSXInstance(domain="https://api.testnet.bsx.exchange", wallet=account, signer=signer)
-
-See our `REST API Overview <https://api-docs.bsx.exchange/reference/rest-overview>`_ for the testnet and mainnet domain.
+    >>> bsx_instance = BSXInstance(env=Environment.TESTNET, wallet=account, signer=signer)
 
 Create an order
 ----------------
@@ -40,7 +38,7 @@ Create an order using `Create order API <https://api-docs.bsx.exchange/reference
     >>> import dataclasses
     >>> import time
     >>> from decimal import Decimal
-    >>> from bsx_python_sdk.common.types.market import CreateOrderParams, Side
+    >>> from bsx_py.common.types.market import CreateOrderParams, Side
 
     >>> params = CreateOrderParams(
         side=Side.BUY,
@@ -64,7 +62,7 @@ Cancel an order using `Cancel an order API <https://api-docs.bsx.exchange/refere
     >>> import dataclasses
 
     >>> order_id = "xxx"
-    >>> res = bsx_instance.cancel_order_by_id(order_id=order_id)
+    >>> res = bsx_instance.cancel_order(order_id=order_id)
     >>> print("Order canceled.", json.dumps(dataclasses.asdict(res)))
 
 Get open orders
@@ -77,6 +75,6 @@ Get your open orders using `List all open orders API <https://api-docs.bsx.excha
     >>> import json
     >>> import dataclasses
 
-    >>> open_orders = bsx_instance.get_open_orders('BTC-PERP')
+    >>> open_orders = bsx_instance.get_all_open_orders('BTC-PERP')
     >>> print("open orders: ", json.dumps(dataclasses.asdict(open_orders)))
 

@@ -95,16 +95,15 @@
 </div>
 <p>Create the BSXInstance providing BSX Exchange domain, account and signer:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">eth_account</span> <span class="kn">import</span> <span class="n">Account</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bsx_python_sdk</span> <span class="kn">import</span> <span class="n">BSXInstance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bsx_py</span> <span class="kn">import</span> <span class="n">BSXInstance</span><span class="p">,</span> <span class="n">Environment</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wallet_private_key</span> <span class="o">=</span> <span class="s2">&quot;xxx&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">signer_private_key</span> <span class="o">=</span> <span class="s2">&quot;yyy&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wallet</span> <span class="o">=</span> <span class="n">Account</span><span class="o">.</span><span class="n">from_key</span><span class="p">(</span><span class="n">wallet_private_key</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">signer</span> <span class="o">=</span> <span class="n">Account</span><span class="o">.</span><span class="n">from_key</span><span class="p">(</span><span class="n">signer_private_key</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bsx_instance</span> <span class="o">=</span> <span class="n">BSXInstance</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="s2">&quot;https://api.testnet.bsx.exchange&quot;</span><span class="p">,</span> <span class="n">wallet</span><span class="o">=</span><span class="n">account</span><span class="p">,</span> <span class="n">signer</span><span class="o">=</span><span class="n">signer</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bsx_instance</span> <span class="o">=</span> <span class="n">BSXInstance</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">Environment</span><span class="o">.</span><span class="n">TESTNET</span><span class="p">,</span> <span class="n">wallet</span><span class="o">=</span><span class="n">account</span><span class="p">,</span> <span class="n">signer</span><span class="o">=</span><span class="n">signer</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See our <a class="reference external" href="https://api-docs.bsx.exchange/reference/rest-overview">REST API Overview</a> for the testnet and mainnet domain.</p>
 </section>
 <section id="create-an-order">
 <h2>Create an order<a class="headerlink" href="#create-an-order" title="Permalink to this heading"></a></h2>
@@ -113,7 +112,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dataclasses</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bsx_python_sdk.common.types.market</span> <span class="kn">import</span> <span class="n">CreateOrderParams</span><span class="p">,</span> <span class="n">Side</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bsx_py.common.types.market</span> <span class="kn">import</span> <span class="n">CreateOrderParams</span><span class="p">,</span> <span class="n">Side</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">params</span> <span class="o">=</span> <span class="n">CreateOrderParams</span><span class="p">(</span>
 <span class="go">    side=Side.BUY,</span>
@@ -135,7 +134,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dataclasses</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">order_id</span> <span class="o">=</span> <span class="s2">&quot;xxx&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">bsx_instance</span><span class="o">.</span><span class="n">cancel_order_by_id</span><span class="p">(</span><span class="n">order_id</span><span class="o">=</span><span class="n">order_id</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">bsx_instance</span><span class="o">.</span><span class="n">cancel_order</span><span class="p">(</span><span class="n">order_id</span><span class="o">=</span><span class="n">order_id</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Order canceled.&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="n">res</span><span class="p">)))</span>
 </pre></div>
 </div>
@@ -146,7 +145,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dataclasses</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">open_orders</span> <span class="o">=</span> <span class="n">bsx_instance</span><span class="o">.</span><span class="n">get_open_orders</span><span class="p">(</span><span class="s1">&#39;BTC-PERP&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">open_orders</span> <span class="o">=</span> <span class="n">bsx_instance</span><span class="o">.</span><span class="n">get_all_open_orders</span><span class="p">(</span><span class="s1">&#39;BTC-PERP&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;open orders: &quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="n">open_orders</span><span class="p">)))</span>
 </pre></div>
 </div>
