@@ -30,6 +30,10 @@ BSXInstance can be initialized either with an API key or the main wallet's priva
     >>> signer = Account.from_key(signer_private_key)
     >>> bsx_instance = BSXInstance.from_api_key(api_key="xxx", api_secret="zzz", signer=signer, env=Environment.TESTNET)
 
+.. note::
+
+    You can pass either an Environment enum value or the BSX API domain in plaintext to the env parameter to create an BSXInstance
+
 Below are supported APIs to interact with BSX Exchange
 
 - **Create an order:**

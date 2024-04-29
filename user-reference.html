@@ -106,6 +106,10 @@ authentication, and session management</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bsx_instance</span> <span class="o">=</span> <span class="n">BSXInstance</span><span class="o">.</span><span class="n">from_api_key</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span><span class="p">,</span> <span class="n">api_secret</span><span class="o">=</span><span class="s2">&quot;zzz&quot;</span><span class="p">,</span> <span class="n">signer</span><span class="o">=</span><span class="n">signer</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">Environment</span><span class="o">.</span><span class="n">TESTNET</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can pass either an Environment enum value or the BSX API domain in plaintext to the env parameter to create an BSXInstance</p>
+</div>
 <p>Below are supported APIs to interact with BSX Exchange</p>
 <ul class="simple">
 <li><p><strong>Create an order:</strong></p></li>

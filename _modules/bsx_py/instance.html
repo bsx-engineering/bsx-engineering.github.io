@@ -116,7 +116,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BSXInstance.from_api_key"><a class="viewcode-back" href="../../api-reference.html#bsx_py.instance.BSXInstance.from_api_key">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">from_api_key</span><span class="p">(</span><span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">api_secret</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signer</span><span class="p">:</span> <span class="n">LocalAccount</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;BSXInstance&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">from_api_key</span><span class="p">(</span><span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">api_secret</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signer</span><span class="p">:</span> <span class="n">LocalAccount</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;BSXInstance&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a new BSXInstance object using an active API key.</span>
 
@@ -129,13 +129,13 @@
 
 <span class="sd">            signer (LocalAccount): signer wallet used to sign requests</span>
 
-<span class="sd">            env (Environment): environment to use (Testnet or mainnet)</span>
+<span class="sd">            env (Environment|str): environment to use (Testnet or mainnet) or the domain in plain text</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            BSXRequestException: If the response status is not &quot;success&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">instance</span> <span class="o">=</span> <span class="n">BSXInstance</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">BSXInstance</span><span class="p">)</span>
-        <span class="n">domain</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">Environment</span><span class="p">)</span> <span class="k">else</span> <span class="n">env</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">_get_chain_config</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
         <span class="n">eip712_domain</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">_build_eip712_domain</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
@@ -149,12 +149,12 @@
 
         <span class="k">return</span> <span class="n">instance</span></div>
 
-<div class="viewcode-block" id="BSXInstance.__init__"><a class="viewcode-back" href="../../api-reference.html#bsx_py.instance.BSXInstance.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">wallet</span><span class="p">:</span> <span class="n">LocalAccount</span><span class="p">,</span> <span class="n">signer</span><span class="p">:</span> <span class="n">LocalAccount</span><span class="p">):</span>
+<div class="viewcode-block" id="BSXInstance.__init__"><a class="viewcode-back" href="../../api-reference.html#bsx_py.instance.BSXInstance.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">wallet</span><span class="p">:</span> <span class="n">LocalAccount</span><span class="p">,</span> <span class="n">signer</span><span class="p">:</span> <span class="n">LocalAccount</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a new BSXInstance object using main wallet&#39;s private key</span>
 
 <span class="sd">        Attributes:</span>
-<span class="sd">            env (Environment): environment to use (Testnet or mainnet)</span>
+<span class="sd">            env (Environment|str): environment to use (Testnet or mainnet) or the domain in plain text</span>
 
 <span class="sd">            wallet (LocalAccount): main wallet</span>
 
@@ -163,7 +163,7 @@
 <span class="sd">        Raises:</span>
 <span class="sd">            BSXRequestException: If the response status is not &quot;success&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">domain</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">Environment</span><span class="p">)</span> <span class="k">else</span> <span class="n">env</span>
         <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_chain_config</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
         <span class="n">eip712_domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_eip712_domain</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
